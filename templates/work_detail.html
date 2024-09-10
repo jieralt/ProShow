@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}{{ work.title }} - 作品详情{% endblock %}
+{% block title %}{{ work.title }} | 作品集{% endblock %}
 
 {% block content %}
 <div class="work-container">
-    <header class="work-hero" style="background-image: url('{{ url_for('static', filename='images/' + work.image) }}');">
+    <header class="work-hero">
+        <div class="hero-background" style="background-image: url('{{ url_for('static', filename='images/' + work.image) }}');"></div>
         <div class="hero-content">
             <h1 class="work-title">{{ work.title }}</h1>
             <p class="work-category">{{ work.category }}</p>
@@ -13,56 +14,57 @@
 
     <main class="work-content">
         <section class="work-overview">
-            <h2>项目概览</h2>
-            <p class="work-description">{{ work.description }}</p>
-            <div class="work-meta">
+            <div class="overview-text">
+                <h2>项目概览</h2>
+                <p class="work-description">{{ work.description }}</p>
+            </div>
+            <div class="overview-meta">
                 <div class="meta-item">
-                    <i class="fas fa-calendar"></i>
-                    <span>完成日期：{{ work.completion_date }}</span>
+                    <span class="meta-label">完成日期</span>
+                    <span class="meta-value">{{ work.completion_date }}</span>
                 </div>
                 <div class="meta-item">
-                    <i class="fas fa-tasks"></i>
-                    <span>项目角色：{{ work.role }}</span>
+                    <span class="meta-label">项目角色</span>
+                    <span class="meta-value">{{ work.role }}</span>
                 </div>
                 <div class="meta-item">
-                    <i class="fas fa-tools"></i>
-                    <span>使用技术：{{ work.technologies }}</span>
+                    <span class="meta-label">使用技术</span>
+                    <span class="meta-value">{{ work.technologies }}</span>
                 </div>
             </div>
         </section>
 
-        <section class="work-gallery">
-            <h2>项目展示</h2>
-            <div class="image-gallery">
+        <section class="work-showcase">
+            <div class="showcase-grid">
                 {% for image in work.images %}
-                <figure class="gallery-item">
-                    <img src="{{ url_for('static', filename='images/' + image.src) }}" alt="{{ image.alt }}" class="gallery-image">
-                    <figcaption>{{ image.caption }}</figcaption>
-                </figure>
+                <div class="showcase-item" data-aos="fade-up">
+                    <img src="{{ url_for('static', filename='images/' + image.src) }}" alt="{{ image.alt }}" class="showcase-image">
+                    <div class="showcase-caption">{{ image.caption }}</div>
+                </div>
                 {% endfor %}
             </div>
         </section>
 
         <section class="work-features">
-            <h2>项目特点</h2>
+            <h2>项目亮点</h2>
             <div class="features-grid">
-                <div class="feature-item">
-                    <i class="fas fa-lightbulb"></i>
+                <div class="feature-item" data-aos="fade-right">
+                    <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
                     <h3>创新设计</h3>
                     <p>{{ work.innovative_design }}</p>
                 </div>
-                <div class="feature-item">
-                    <i class="fas fa-code"></i>
+                <div class="feature-item" data-aos="fade-left">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
                     <h3>技术实现</h3>
                     <p>{{ work.technical_implementation }}</p>
                 </div>
-                <div class="feature-item">
-                    <i class="fas fa-users"></i>
+                <div class="feature-item" data-aos="fade-right">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
                     <h3>用户体验</h3>
                     <p>{{ work.user_experience }}</p>
                 </div>
-                <div class="feature-item">
-                    <i class="fas fa-chart-line"></i>
+                <div class="feature-item" data-aos="fade-left">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                     <h3>项目成果</h3>
                     <p>{{ work.project_outcome }}</p>
                 </div>
@@ -70,23 +72,25 @@
         </section>
 
         {% if work.testimonial %}
-        <section class="work-testimonial">
-            <h2>客户评价</h2>
+        <section class="work-testimonial" data-aos="zoom-in">
             <blockquote>
                 <p>"{{ work.testimonial.content }}"</p>
-                - {{ work.testimonial.author }}, {{ work.testimonial.position }}
+                
+                    <span class="author">{{ work.testimonial.author }}</span>
+                    <span class="position">{{ work.testimonial.position }}</span>
+                
             </blockquote>
         </section>
         {% endif %}
     </main>
 
     <footer class="work-footer">
-        <a href="{{ url_for('main.index') }}" class="back-btn">
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">
             <i class="fas fa-arrow-left"></i> 返回作品集
         </a>
         {% if work.next_work %}
-        <a href="{{ url_for('main.work_detail', work_id=work.next_work.id) }}" class="next-work-btn">
-            下一个作品：{{ work.next_work.title }} <i class="fas fa-arrow-right"></i>
+        <a href="{{ url_for('main.work_detail', work_id=work.next_work.id) }}" class="btn btn-secondary">
+            下一个作品 <i class="fas fa-arrow-right"></i>
         </a>
         {% endif %}
     </footer>
@@ -95,9 +99,11 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/work_detail.css') }}">
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="{{ url_for('static', filename='js/work_detail.js') }}"></script>
 {% endblock %}
