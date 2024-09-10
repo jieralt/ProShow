@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "title": "水墨风电商网站",
+        "category": "网页设计",
+        "image": "web_design_1.jpg",
+        "description": "融合传统水墨画风格的现代电子商务平台",
+        "cloud_link": "#",
+        "github_link": "#"
+    },
+    {
+        "id": 2,
+        "title": "茶道文化展示站",
+        "category": "网页设计",
+        "image": "web_design_2.jpg",
+        "description": "以优雅的交互展现中国茶文化的深邃魅力",
+        "cloud_link": "#",
+        "github_link": "#"
+    },
+    {
+        "id": 3,
+        "title": "古风日历App",
+        "category": "应用开发",
+        "image": "app_dev_1.jpg",
+        "description": "结合传统节气和现代生活的个人日程管理应用",
+        "cloud_link": "#",
+        "github_link": "#"
+    },
+    {
+        "id": 4,
+        "title": "古建筑3D模型",
+        "category": "建模设计",
+        "image": "model_design_1.jpg",
+        "description": "精确还原古代建筑结构的三维模型",
+        "cloud_link": "#",
+        "github_link": "#"
+    },
+    {
+        "id": 5,
+        "title": "水墨风格格斗游戏",
+        "category": "游戏设计",
+        "image": "game_design_1.jpg",
+        "description": "融合中国传统武术的动作类游戏",
+        "cloud_link": "#",
+        "github_link": "#"
+    }
+]
