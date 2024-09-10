@@ -3,9 +3,101 @@
 {% block title %}{{ work.title }} - 作品详情{% endblock %}
 
 {% block content %}
-<h1>{{ work.title }}</h1>
-<img src="{{ url_for('static', filename='images/' + work.image) }}" alt="{{ work.title }}" class="detail-image">
-<p class="category">类别: {{ work.category }}</p>
-<p class="description">{{ work.description }}</p>
-<a href="{{ url_for('main.index') }}" class="back-btn">返回首页</a>
+<div class="work-container">
+    <header class="work-hero" style="background-image: url('{{ url_for('static', filename='images/' + work.image) }}');">
+        <div class="hero-content">
+            <h1 class="work-title">{{ work.title }}</h1>
+            <p class="work-category">{{ work.category }}</p>
+        </div>
+    </header>
+
+    <main class="work-content">
+        <section class="work-overview">
+            <h2>项目概览</h2>
+            <p class="work-description">{{ work.description }}</p>
+            <div class="work-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>完成日期：{{ work.completion_date }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tasks"></i>
+                    <span>项目角色：{{ work.role }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tools"></i>
+                    <span>使用技术：{{ work.technologies }}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="work-gallery">
+            <h2>项目展示</h2>
+            <div class="image-gallery">
+                {% for image in work.images %}
+                <figure class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/' + image.src) }}" alt="{{ image.alt }}" class="gallery-image">
+                    <figcaption>{{ image.caption }}</figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="work-features">
+            <h2>项目特点</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>创新设计</h3>
+                    <p>{{ work.innovative_design }}</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-code"></i>
+                    <h3>技术实现</h3>
+                    <p>{{ work.technical_implementation }}</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-users"></i>
+                    <h3>用户体验</h3>
+                    <p>{{ work.user_experience }}</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>项目成果</h3>
+                    <p>{{ work.project_outcome }}</p>
+                </div>
+            </div>
+        </section>
+
+        {% if work.testimonial %}
+        <section class="work-testimonial">
+            <h2>客户评价</h2>
+            <blockquote>
+                <p>"{{ work.testimonial.content }}"</p>
+                - {{ work.testimonial.author }}, {{ work.testimonial.position }}
+            </blockquote>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer class="work-footer">
+        <a href="{{ url_for('main.index') }}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回作品集
+        </a>
+        {% if work.next_work %}
+        <a href="{{ url_for('main.work_detail', work_id=work.next_work.id) }}" class="next-work-btn">
+            下一个作品：{{ work.next_work.title }} <i class="fas fa-arrow-right"></i>
+        </a>
+        {% endif %}
+    </footer>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/work_detail.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/work_detail.js') }}"></script>
 {% endblock %}
